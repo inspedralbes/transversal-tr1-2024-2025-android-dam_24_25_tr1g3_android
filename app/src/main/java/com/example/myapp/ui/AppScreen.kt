@@ -99,12 +99,14 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.myapp.data.*
+import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
 
 @Composable
 fun AppScreen() {
@@ -123,8 +125,11 @@ fun AppScreen() {
         Surface(
             modifier = Modifier.padding(16.dp).fillMaxSize()
         ) {
-            // Mostrar la llista de productes
-            ProductList(productes = productes)
+            Column {
+                Text(text = "Nom App", textAlign = TextAlign.Center)
+                // Mostrar la llista de productes
+                ProductList(productes = productes)
+            }
         }
     }
 }
