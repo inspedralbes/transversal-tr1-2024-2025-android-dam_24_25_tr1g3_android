@@ -1,0 +1,7 @@
+#Thu Oct 24 11:50:01 CEST 2024
+base.0=C\:\\Users\\isard\\AndroidStudioProjects\\transversal-tr1-2024-2025-android-dam_24_25_tr1g3_android\\app\\build\\intermediates\\dex\\debugAndroidTest\\mergeExtDexDebugAndroidTest\\classes.dex
+base.1=C\:\\Users\\isard\\AndroidStudioProjects\\transversal-tr1-2024-2025-android-dam_24_25_tr1g3_android\\app\\build\\intermediates\\dex\\debugAndroidTest\\mergeProjectDexDebugAndroidTest\\0\\classes.dex
+path.0=classes.dex
+path.1=0/classes.dex
+renamed.0=classes.dex
+renamed.1=classes2.dex
