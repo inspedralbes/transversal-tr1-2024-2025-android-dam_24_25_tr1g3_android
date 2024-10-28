@@ -3,16 +3,32 @@ package com.example.myapp.ui
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.myapp.data.Product
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
 class AppViewModel  : ViewModel(){
 
-    // Game UI state
-    private val _uiState = MutableStateFlow(AppUiState())
-    val uiState: StateFlow<AppUiState> = _uiState.asStateFlow()
+    // Llista de productes
+    private val _productes = MutableStateFlow<List<Product>>(emptyList())
+    val productes: StateFlow<List<Product>> get() = _productes.asStateFlow()
 
-    private var usedWords: MutableSet<String> = mutableSetOf()
+    // Llista de productes seleccionats
+    private val _productesSeleccionats = MutableStateFlow<List<Product>>(emptyList())
+    val productesSeleccionats: StateFlow<List<Product>> get() = _productesSeleccionats.asStateFlow()
+
+    // Funció per establir la llista de productes
+    fun setProductes(array: List<Product>) {
+        _productes.value = array
+        actualitzarProductesSeleccionats()
+    }
+
+    // Funció per actualitzar la llista de productes seleccionats
+    private fun actualitzarProductesSeleccionats() {
+        _productesSeleccionats.value = _productes.value.filter { it.select }
+    }
 }

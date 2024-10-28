@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.myapp-mergeDebugResources-61:/values-v30/values-v30.xml",
+            "outputFile": "com.example.myapp-mergeDebugResources-66:/values-v30/values-v30.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\isard\\.gradle\\caches\\transforms-4\\0d34fbb68a44050afca646ee8495a9a3\\transformed\\jetified-material3-release\\res\\values-v30\\values-v30.xml",
+                    "source": "C:\\Users\\mati\\.gradle\\caches\\transforms-4\\0d34fbb68a44050afca646ee8495a9a3\\transformed\\jetified-material3-release\\res\\values-v30\\values-v30.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
