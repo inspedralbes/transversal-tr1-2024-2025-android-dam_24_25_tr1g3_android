@@ -1,5 +1,5 @@
-com.example.myapp.test.app-jetified-core-1.6.1-0 C:\Users\isard\.gradle\caches\transforms-4\8e1c5a72492cab921b9fe321b8a92fd1\transformed\jetified-core-1.6.1\res
-com.example.myapp.test.app-androidTest-1 C:\Users\isard\AndroidStudioProjects\transversal-tr1-2024-2025-android-dam_24_25_tr1g3_android\app\build\generated\res\resValues\androidTest\debug
-com.example.myapp.test.app-mergeDebugAndroidTestResources-2 C:\Users\isard\AndroidStudioProjects\transversal-tr1-2024-2025-android-dam_24_25_tr1g3_android\app\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\merged.dir
-com.example.myapp.test.app-mergeDebugAndroidTestResources-3 C:\Users\isard\AndroidStudioProjects\transversal-tr1-2024-2025-android-dam_24_25_tr1g3_android\app\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\stripped.dir
-com.example.myapp.test.app-debugAndroidTest-4 C:\Users\isard\AndroidStudioProjects\transversal-tr1-2024-2025-android-dam_24_25_tr1g3_android\app\build\intermediates\merged_res\debugAndroidTest\mergeDebugAndroidTestResources
+com.example.myapp.test.app-jetified-core-1.6.1-0 C:\Users\mati\.gradle\caches\transforms-4\8e1c5a72492cab921b9fe321b8a92fd1\transformed\jetified-core-1.6.1\res
+com.example.myapp.test.app-androidTest-1 C:\Users\mati\StudioProjects\transversal-tr1-2024-2025-android-dam_24_25_tr1g3_android\app\build\generated\res\resValues\androidTest\debug
+com.example.myapp.test.app-mergeDebugAndroidTestResources-2 C:\Users\mati\StudioProjects\transversal-tr1-2024-2025-android-dam_24_25_tr1g3_android\app\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\merged.dir
+com.example.myapp.test.app-mergeDebugAndroidTestResources-3 C:\Users\mati\StudioProjects\transversal-tr1-2024-2025-android-dam_24_25_tr1g3_android\app\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\stripped.dir
+com.example.myapp.test.app-debugAndroidTest-4 C:\Users\mati\StudioProjects\transversal-tr1-2024-2025-android-dam_24_25_tr1g3_android\app\build\intermediates\merged_res\debugAndroidTest\mergeDebugAndroidTestResources

@@ -37,6 +37,8 @@ import com.example.myapp.data.*
 import androidx.compose.ui.Alignment
 import androidx.activity.viewModels
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.AbsoluteAlignment
+import androidx.compose.ui.window.PopupProperties
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
@@ -58,10 +60,63 @@ fun AppScreen(viewModel: AppViewModel = viewModel()) {
             modifier = Modifier.padding(16.dp).fillMaxSize()
         ) {
             Column {
+                DropdownMenuExample()
                 Text(text = "Nom App", textAlign = TextAlign.Center)
                 // Mostrar la llista de productes
                 ProductList(productes = productes, viewModel = viewModel)
                 ProductList(productes = productesSeleccionats, viewModel = viewModel )
+            }
+        }
+    }
+}
+
+@Composable
+fun DropdownMenuExample() {
+    // Estat per controlar la visibilitat del menú
+    var expanded by remember { mutableStateOf(false) }
+
+    // Contingut del botó i el menú desplegable
+    Box(
+        modifier = Modifier
+            .padding(0.dp)
+    ) {
+        // Botó que activa o desactiva el menú desplegable
+        Button(modifier = Modifier.align(Alignment.TopStart),
+            onClick = { expanded = true },
+            colors = ButtonColors(
+                disabledContainerColor = Color.LightGray,
+                disabledContentColor = Color.Gray,
+                contentColor = Color.Black,
+                containerColor = Color.LightGray
+            )
+        ) {
+            Text("···")
+        }
+
+        // Menú desplegable
+        DropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { expanded = false },
+            properties = PopupProperties(focusable = true),
+            offset = androidx.compose.ui.unit.DpOffset(x = 0.dp, y = 0.dp) // Posició del menú
+
+        ) {
+            Column(modifier = Modifier.fillMaxSize().align(Alignment.CenterHorizontally)) {
+                // Elements del menú
+                DropdownMenuItem(
+                    text = { Text("Opcions de Perfil") },
+                    onClick = {
+                        expanded = false
+                        // Acció per a l'opció 1
+                    }
+                )
+                DropdownMenuItem(
+                    text = { Text("Tancar Sessió") },
+                    onClick = {
+                        expanded = false
+                        // Acció per a l'opció 2
+                    }
+                )
             }
         }
     }
