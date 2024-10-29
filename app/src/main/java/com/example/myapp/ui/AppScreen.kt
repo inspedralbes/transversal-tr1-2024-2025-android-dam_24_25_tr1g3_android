@@ -42,9 +42,10 @@ import androidx.compose.ui.window.PopupProperties
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun AppScreen(viewModel: AppViewModel = viewModel()) {
+fun AppScreen(viewModel: AppViewModel = viewModel(), navController: NavController) {
     // Llista de productes
     val productes = productes
 
@@ -60,7 +61,7 @@ fun AppScreen(viewModel: AppViewModel = viewModel()) {
             modifier = Modifier.padding(16.dp).fillMaxSize()
         ) {
             Column {
-                DropdownMenuExample()
+                DropdownMenuExample(navController)
                 Text(text = "Nom App", textAlign = TextAlign.Center)
                 // Mostrar la llista de productes
                 ProductList(productes = productes, viewModel = viewModel)
@@ -71,7 +72,7 @@ fun AppScreen(viewModel: AppViewModel = viewModel()) {
 }
 
 @Composable
-fun DropdownMenuExample() {
+fun DropdownMenuExample(navController: NavController) {
     // Estat per controlar la visibilitat del menú
     var expanded by remember { mutableStateOf(false) }
 
@@ -107,6 +108,7 @@ fun DropdownMenuExample() {
                     text = { Text("Opcions de Perfil") },
                     onClick = {
                         expanded = false
+                        navController.navigate("Options")
                         // Acció per a l'opció 1
                     }
                 )
@@ -187,5 +189,5 @@ fun ProductItem(producte: Product, productes: List<Product>,viewModel: AppViewMo
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
-    AppScreen()
+    AppScreen(navController = rememberNavController())
 }

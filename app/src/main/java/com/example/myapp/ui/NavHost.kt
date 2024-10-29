@@ -34,9 +34,10 @@ import androidx.navigation.compose.rememberNavController
 @Composable
 fun NavHost1() {
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = "Carrito") {
+    NavHost(navController = navController, startDestination = "App") {
         composable("App") { AppScreen1(navController) }
-        composable("Carrito") { CarritoScreen1(navController) }
+        composable("Carro") { CarritoScreen1(navController) }
+        composable("Options") { OptionsScreen1(navController) }
     }
 }
 
@@ -48,10 +49,10 @@ fun AppScreen1(navController: NavController) {
 
     // Botó per navegar a la pantalla de detalls
     Column {
-        Button(modifier = Modifier.align(Alignment.End), onClick = { navController.navigate("Carrito") }) {
+        Button(modifier = Modifier.align(Alignment.End), onClick = { navController.navigate("Carro") }) {
             Text("Cambiar Pagina")
         }
-        AppScreen(viewModel)
+        AppScreen(viewModel, navController)
     }
 }
 
@@ -65,6 +66,14 @@ fun CarritoScreen1(navController: NavController) {
         Button(onClick = { navController.navigate("App") }) {
             Text("Cambiar Pagina")
         }
-        CarritoScreen(viewModel)
+        CarritoScreen(viewModel, navController)
     }
+}
+
+@Composable
+fun OptionsScreen1(navController: NavController) {
+    val viewModel: AppViewModel = viewModel()
+
+    // Contingut de la pantalla de detalls
+    OptionsScreen(navController)
 }

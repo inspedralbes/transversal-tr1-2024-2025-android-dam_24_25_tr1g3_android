@@ -36,23 +36,23 @@ import coil.request.ImageRequest
 import com.example.myapp.data.*
 import androidx.compose.ui.Alignment
 import androidx.activity.viewModels
+import androidx.compose.foundation.Image
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.AbsoluteAlignment
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.window.PopupProperties
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun OptionsScreen(viewModel: AppViewModel = viewModel()) {
-    // Llista de productes
-    val productes = productes
-
-    // Estableix els productes al ViewModel
-    viewModel.setProductes(productes)
-
-    // Obteniu la llista de productes seleccionats
-    val productesSeleccionats by viewModel.productesSeleccionats.collectAsState()
+fun OptionsScreen(navController: NavController) {
+    // Variables per emmagatzemar el text dels inputs
+    var userName by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
+    var email by remember { mutableStateOf("") }
+    var card by remember { mutableStateOf("") }
 
     // Disseny principal
     MaterialTheme {
@@ -60,12 +60,79 @@ fun OptionsScreen(viewModel: AppViewModel = viewModel()) {
             modifier = Modifier.padding(16.dp).fillMaxSize()
         ) {
             Column {
-                DropdownMenuExample()
-                Text(text = "Nom App", textAlign = TextAlign.Center)
-                // Mostrar la llista de productes
-                ProductList(productes = productes, viewModel = viewModel)
-                ProductList(productes = productesSeleccionats, viewModel = viewModel )
+                Row {
+                    Button(onClick = { navController.navigate("App") }) {
+                        Text(text = "Inici", textAlign = TextAlign.Center)
+                    }
+                    // Aquí pots afegir la imatge si cal
+                }
+
+                Text(text = "Usuari", textAlign = TextAlign.Center, modifier = Modifier.align(Alignment.CenterHorizontally))
+                // Caixa d'entrada per a canviar el nom
+                TextField(
+                    value = userName,
+                    onValueChange = { userName = it },
+                    label = { Text("Cambiar Nom") },
+                    modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp)
+                )
+
+                Text(text = "Contrasenya", textAlign = TextAlign.Center, modifier = Modifier.align(Alignment.CenterHorizontally))
+                // Caixa d'entrada per a la contrasenya
+                TextField(
+                    value = password,
+                    onValueChange = { password = it },
+                    label = { Text("Cambiar Contrasenya") },
+                    modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp),
+                    visualTransformation = PasswordVisualTransformation() // Amaga el text de la contrasenya
+                )
+
+                Text(text = "Correu", textAlign = TextAlign.Center, modifier = Modifier.align(Alignment.CenterHorizontally))
+                // Caixa d'entrada per al correu
+                TextField(
+                    value = email,
+                    onValueChange = { email = it },
+                    label = { Text("Cambiar Correu") },
+                    modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp)
+                )
+
+                Text(text = "Targeta", textAlign = TextAlign.Center, modifier = Modifier.align(Alignment.CenterHorizontally))
+                // Caixa d'entrada per a la targeta
+                TextField(
+                    value = card,
+                    onValueChange = { card = it },
+                    label = { Text("Cambiar Targeta") },
+                    modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp)
+                )
+
+                // Botó per guardar els inputs
+                Button(
+                    onClick = {
+                        // Lògica per guardar els inputs
+                        saveUserData(userName, password, email, card)
+
+                        // Buidar els inputs
+                        userName = ""
+                        password = ""
+                        email = ""
+                        card = ""
+                    },
+                    modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp)
+                ) {
+                    Text("Guardar Canvis")
+                }
             }
         }
     }
+}
+
+// Funció per guardar les dades de l'usuari
+private fun saveUserData(userName: String, password: String, email: String, card: String) {
+    //Emmagatzemar en una base de dades
+    Log.d("OptionsScreen", "Nom: $userName, Contrasenya: $password, Correu: $email, Targeta: $card")
+}
+
+@Preview(showBackground = true)
+@Composable
+fun DefaultPreview1() {
+    OptionsScreen(navController = rememberNavController())
 }
