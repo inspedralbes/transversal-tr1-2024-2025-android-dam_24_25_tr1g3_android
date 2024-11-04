@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         setContent {
             AppTheme {
                 Surface(modifier = Modifier.padding(16.dp).fillMaxSize()){
-                    NavHost1()
+                    NavHost1(activity = this)
                 }
             }
         }

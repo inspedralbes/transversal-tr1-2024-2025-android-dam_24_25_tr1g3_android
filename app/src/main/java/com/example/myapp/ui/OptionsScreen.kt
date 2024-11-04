@@ -47,13 +47,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun OptionsScreen(navController: NavController) {
+fun OptionsScreen(viewModel: AppViewModel, navController: NavController) {
     // Variables per emmagatzemar el text dels inputs
-    var userName by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
-    var email by remember { mutableStateOf("") }
-    var card by remember { mutableStateOf("") }
-
+    val user by viewModel.user.collectAsState()
+    println(viewModel.user.collectAsState())
     // Disseny principal
     MaterialTheme {
         Surface(
@@ -67,45 +64,77 @@ fun OptionsScreen(navController: NavController) {
                     // Aquí pots afegir la imatge si cal
                 }
 
-                Text(text = "Usuari", textAlign = TextAlign.Center, modifier = Modifier.align(Alignment.CenterHorizontally))
-                // Caixa d'entrada per a canviar el nom
-                TextField(
-                    value = userName,
-                    onValueChange = { userName = it },
-                    label = { Text("Cambiar Nom") },
-                    modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp)
-                )
+                Column(modifier = Modifier.padding(16.dp)) {
 
-                Text(text = "Contrasenya", textAlign = TextAlign.Center, modifier = Modifier.align(Alignment.CenterHorizontally))
-                // Caixa d'entrada per a la contrasenya
-                TextField(
-                    value = password,
-                    onValueChange = { password = it },
-                    label = { Text("Cambiar Contrasenya") },
-                    modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp),
-                    visualTransformation = PasswordVisualTransformation() // Amaga el text de la contrasenya
-                )
+                    println("Usuario: ${user.nom}, Contraseña: ${user.contrasenya}, Correo: ${user.correu}, Teléfono: ${user.telefon}")
 
-                Text(text = "Correu", textAlign = TextAlign.Center, modifier = Modifier.align(Alignment.CenterHorizontally))
-                // Caixa d'entrada per al correu
-                TextField(
-                    value = email,
-                    onValueChange = { email = it },
-                    label = { Text("Cambiar Correu") },
-                    modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp)
-                )
+                    Card(modifier = Modifier.padding(vertical = 8.dp).fillMaxWidth()) {
+                        Column(modifier = Modifier.padding(16.dp)) {
+                            Text(
+                                text = "Usuari",
+                                textAlign = TextAlign.Center,
+                                modifier = Modifier.fillMaxWidth()
+                            )
+                            // Caixa d'entrada per a canviar el nom
+                            Text(
+                                text = user.nom,
+                                textAlign = TextAlign.Center,
+                                modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp)
+                            )
+                        }
+                    }
 
-                Text(text = "Targeta", textAlign = TextAlign.Center, modifier = Modifier.align(Alignment.CenterHorizontally))
-                // Caixa d'entrada per a la targeta
-                TextField(
-                    value = card,
-                    onValueChange = { card = it },
-                    label = { Text("Cambiar Targeta") },
-                    modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp)
-                )
+                    Card(modifier = Modifier.padding(vertical = 8.dp).fillMaxWidth()) {
+                        Column(modifier = Modifier.padding(16.dp)) {
+                            Text(
+                                text = "Contrasenya",
+                                textAlign = TextAlign.Center,
+                                modifier = Modifier.fillMaxWidth()
+                            )
+                            // Caixa d'entrada per a la contrasenya
+                            Text(
+                                text = user.contrasenya,
+                                textAlign = TextAlign.Center,
+                                modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp)
+                            )
+                        }
+                    }
+
+                    Card(modifier = Modifier.padding(vertical = 8.dp).fillMaxWidth()) {
+                        Column(modifier = Modifier.padding(16.dp)) {
+                            Text(
+                                text = "Correu",
+                                textAlign = TextAlign.Center,
+                                modifier = Modifier.fillMaxWidth()
+                            )
+                            // Caixa d'entrada per al correu
+                            Text(
+                                text = user.correu,
+                                textAlign = TextAlign.Center,
+                                modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp)
+                            )
+                        }
+                    }
+
+                    Card(modifier = Modifier.padding(vertical = 8.dp).fillMaxWidth()) {
+                        Column(modifier = Modifier.padding(16.dp)) {
+                            Text(
+                                text = "Telefon",
+                                textAlign = TextAlign.Center,
+                                modifier = Modifier.fillMaxWidth()
+                            )
+                            // Caixa d'entrada per al telefon
+                            Text(
+                                text = user.telefon.toString(),
+                                textAlign = TextAlign.Center,
+                                modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp)
+                            )
+                        }
+                    }
+                }
 
                 // Botó per guardar els inputs
-                Button(
+                /*Button(
                     onClick = {
                         // Lògica per guardar els inputs
                         saveUserData(userName, password, email, card)
@@ -118,8 +147,8 @@ fun OptionsScreen(navController: NavController) {
                     },
                     modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp)
                 ) {
-                    Text("Guardar Canvis")
-                }
+                    Text("Tancar Sessio")
+                }*/
             }
         }
     }
@@ -134,5 +163,6 @@ private fun saveUserData(userName: String, password: String, email: String, card
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview1() {
-    OptionsScreen(navController = rememberNavController())
+    val viewModel: AppViewModel = viewModel()
+    OptionsScreen(viewModel, navController = rememberNavController())
 }

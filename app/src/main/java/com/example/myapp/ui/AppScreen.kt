@@ -47,10 +47,7 @@ import androidx.navigation.compose.rememberNavController
 @Composable
 fun AppScreen(viewModel: AppViewModel = viewModel(), navController: NavController) {
     // Llista de productes
-    val productes = productes
-
-    // Estableix els productes al ViewModel
-    viewModel.setProductes(productes)
+    val productes by viewModel.products.collectAsState()
 
     // Obteniu la llista de productes seleccionats
     val productesSeleccionats by viewModel.productesSeleccionats.collectAsState()
@@ -61,8 +58,29 @@ fun AppScreen(viewModel: AppViewModel = viewModel(), navController: NavControlle
             modifier = Modifier.padding(16.dp).fillMaxSize()
         ) {
             Column {
-                DropdownMenuExample(navController)
-                Text(text = "Nom App", textAlign = TextAlign.Center)
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .align(Alignment.CenterHorizontally),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    DropdownMenuExample(viewModel, navController)
+                    Button(onClick = { navController.navigate("Carro") }) {
+                        Text("Carro")
+                    }
+                }
+                AsyncImage(
+                    model = ImageRequest.Builder(LocalContext.current)
+                        .data("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmNILEZppKJCs1LHgBaUGbbFzQJsv6b5bt-w&s")
+                        .crossfade(true)
+                        .build(),
+                    contentDescription = null,
+                    modifier = Modifier.size(200.dp).align(Alignment.CenterHorizontally)
+                )
+                Button(modifier = Modifier.align(Alignment.CenterHorizontally),onClick = { navController.navigate("Compra") }) {
+                    Text("Comprar Productes Seleccionats")
+                }
+                Text(text = "Productes", textAlign = TextAlign.Center, fontSize = 30.sp)
                 // Mostrar la llista de productes
                 ProductList(productes = productes, viewModel = viewModel)
                 ProductList(productes = productesSeleccionats, viewModel = viewModel )
@@ -72,7 +90,7 @@ fun AppScreen(viewModel: AppViewModel = viewModel(), navController: NavControlle
 }
 
 @Composable
-fun DropdownMenuExample(navController: NavController) {
+fun DropdownMenuExample(viewModel: AppViewModel, navController: NavController) {
     // Estat per controlar la visibilitat del menú
     var expanded by remember { mutableStateOf(false) }
 
@@ -116,6 +134,8 @@ fun DropdownMenuExample(navController: NavController) {
                     text = { Text("Tancar Sessió") },
                     onClick = {
                         expanded = false
+                        viewModel.setUser(emptyUser())
+                        navController.navigate("Login")
                         // Acció per a l'opció 2
                     }
                 )
@@ -138,7 +158,7 @@ fun ProductList(productes: List<Product>, viewModel: AppViewModel) {
             ) {
                 // Per cada element de la fila (2 per fila)
                 for (producte in rowProducts) {
-                    ProductItem(producte = producte, productes = productes,viewModel = viewModel,modifier = Modifier.weight(5f))
+                    ProductItem(producte = producte, productes = productes, viewModel = viewModel, modifier = Modifier.weight(5f))
                 }
             }
         }

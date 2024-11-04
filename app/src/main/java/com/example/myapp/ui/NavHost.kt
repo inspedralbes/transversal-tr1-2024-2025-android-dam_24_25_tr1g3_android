@@ -29,51 +29,46 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.myapp.data.productes
 
 
 @Composable
-fun NavHost1() {
+fun NavHost1(activity: AppCompatActivity) {
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = "App") {
-        composable("App") { AppScreen1(navController) }
-        composable("Carro") { CarritoScreen1(navController) }
-        composable("Options") { OptionsScreen1(navController) }
+    val viewModel: AppViewModel = viewModel()
+    val productes = productes
+    // Estableix els productes al ViewModel
+    viewModel.setProductes(productes)
+    NavHost(navController = navController, startDestination = "Login") {
+        composable("App") { AppScreen1(viewModel, navController) }
+        composable("Carro") { CarritoScreen1(viewModel, navController) }
+        composable("Options") { OptionsScreen1(viewModel, navController) }
+        composable("Login") { LoginScreen1(viewModel, navController, activity) }
+        composable("Compra") { CompraScreen1(viewModel, navController)}
     }
 }
 
 @Composable
-fun AppScreen1(navController: NavController) {
-    // Aquí és on configurarem el ViewModel com abans
-    val viewModel: AppViewModel = viewModel()
-
-
-    // Botó per navegar a la pantalla de detalls
-    Column {
-        Button(modifier = Modifier.align(Alignment.End), onClick = { navController.navigate("Carro") }) {
-            Text("Cambiar Pagina")
-        }
-        AppScreen(viewModel, navController)
-    }
+fun AppScreen1(viewModel: AppViewModel, navController: NavController) {
+    AppScreen(viewModel, navController)
 }
 
 @Composable
-fun CarritoScreen1(navController: NavController) {
-    val viewModel: AppViewModel = viewModel()
-
-    // Contingut de la pantalla de detalls
-    Column {
-        Text(text = "Aquesta és el Carro", fontSize = 24.sp)
-        Button(onClick = { navController.navigate("App") }) {
-            Text("Cambiar Pagina")
-        }
-        CarritoScreen(viewModel, navController)
-    }
+fun CarritoScreen1(viewModel: AppViewModel, navController: NavController) {
+    CarritoScreen(viewModel, navController)
 }
 
 @Composable
-fun OptionsScreen1(navController: NavController) {
-    val viewModel: AppViewModel = viewModel()
+fun OptionsScreen1(viewModel: AppViewModel, navController: NavController) {
+    OptionsScreen(viewModel, navController)
+}
 
-    // Contingut de la pantalla de detalls
-    OptionsScreen(navController)
+@Composable
+fun LoginScreen1(viewModel: AppViewModel, navController: NavController, activity: AppCompatActivity) {
+    LoginScreen(viewModel, navController, activity)
+}
+
+@Composable
+fun CompraScreen1(viewModel: AppViewModel = viewModel(), navController: NavController) {
+    CompraScreen(viewModel, navController)
 }
