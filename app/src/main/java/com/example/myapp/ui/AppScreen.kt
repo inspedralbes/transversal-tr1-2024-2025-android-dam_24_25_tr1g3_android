@@ -169,6 +169,7 @@ fun ProductList(productes: List<Product>, viewModel: AppViewModel) {
 fun ProductItem(producte: Product, productes: List<Product>,viewModel: AppViewModel, modifier: Modifier) {
 
     var isSelected by remember { mutableStateOf(producte.select) }
+    var cantidad by remember { mutableStateOf(producte.cantitatCompra.toString()) }
     // Representa un producte dins d'una targeta
     Card(
         elevation = CardDefaults.cardElevation(4.dp),
@@ -178,6 +179,7 @@ fun ProductItem(producte: Product, productes: List<Product>,viewModel: AppViewMo
             .clickable {
                 isSelected = !isSelected
                 producte.select = isSelected
+                producte.cantitatCompra = cantidad.toInt()
                 viewModel.setProductes(productes) // Actualitza l'array al ViewModel
             }
     ) {
@@ -185,14 +187,28 @@ fun ProductItem(producte: Product, productes: List<Product>,viewModel: AppViewMo
             Column(
                 modifier = Modifier.padding(16.dp),
             ) {
-                Text(text = "${producte.nom} ${producte.preu}€")
+                Text(text = "${producte.nom} ${producte.preu}€\nRestants: ${producte.stock}\nCantitat a Comprar:")
+
+                // Agregar TextField para campo numérico
+                OutlinedTextField(
+                    value = cantidad,
+                    onValueChange = { newValue ->
+                        // Permitir solo números
+                        if (newValue.all { it.isDigit() }) {
+                            cantidad = newValue
+                        }
+                    },
+                    label = { Text("Cantidad") },
+                    modifier = Modifier.fillMaxWidth(),
+
+                )
                 AsyncImage(
                     model = ImageRequest.Builder(LocalContext.current)
                         .data(producte.linkimatge)
                         .crossfade(true)
                         .build(),
                     contentDescription = null,
-                    modifier = Modifier.fillMaxSize()
+                    modifier = Modifier.fillMaxSize().padding(vertical = 5.dp)
                 )
             }
             Box(

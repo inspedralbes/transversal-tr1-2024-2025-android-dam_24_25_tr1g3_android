@@ -39,7 +39,7 @@ fun CompraScreen(viewModel: AppViewModel = viewModel(), navController: NavContro
                 Button(onClick = { navController.navigate("App") }) {
                     Text("Tornar Enrere")
                 }
-                Button(modifier = Modifier.align(Alignment.CenterHorizontally), onClick = { navController.navigate("App") }) {
+                Button(modifier = Modifier.align(Alignment.CenterHorizontally), onClick = { /*navController.navigate("App")*/ }) {
                     Text("Fer Comanda")
                 }
                 Text(text = "Carro", textAlign = TextAlign.Center, fontSize = 30.sp)
