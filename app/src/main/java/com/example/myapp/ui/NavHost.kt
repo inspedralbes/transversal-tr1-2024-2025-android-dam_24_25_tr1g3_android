@@ -47,7 +47,7 @@ fun NavHost1(activity: AppCompatActivity) {
         composable("Compra") { CompraScreen1(viewModel, navController)}
     }
 }
-
+//Pantalles
 @Composable
 fun AppScreen1(viewModel: AppViewModel, navController: NavController) {
     AppScreen(viewModel, navController)
